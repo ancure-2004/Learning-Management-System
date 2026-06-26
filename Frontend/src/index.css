@@ -1,0 +1,172 @@
+@import "tailwindcss";
+/* App font (Plus Jakarta Sans) is loaded once via <link> in index.html. */
+
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS → Tailwind theme (the JS `theme` object in @/theme,
+   mirrored here so utilities like bg-accent / text-accent / border-accent-border
+   map to the same palette). This is the foundation for migrating inline
+   styles to Tailwind utilities. Keep in sync with src/theme.js.
+   ═══════════════════════════════════════════════════════════════ */
+@theme {
+  --color-bg: #eef0f5;
+  --color-bg-alt: #f4f5f9;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f5f9;
+  --color-border: rgba(15, 23, 42, 0.06);
+  --color-border-hi: rgba(15, 23, 42, 0.10);
+  --color-divider: rgba(15, 23, 42, 0.06);
+  --color-text: #0f172a;
+  --color-text2: #334155;
+  --color-text3: #64748b;
+  --color-text4: #94a3b8;
+  --color-accent: #7c3aed;
+  --color-accent2: #a78bfa;
+  --color-accent-soft: #ede9fe;
+  --color-accent-border: #c4b5fd;
+  --color-green: #10b981;
+  --color-green-soft: #d1fae5;
+  --color-amber: #f59e0b;
+  --color-amber-soft: #fef3c7;
+  --color-red: #ef4444;
+  --color-red-soft: #fee2e2;
+  --color-blue: #3b82f6;
+  --color-blue-soft: #dbeafe;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — mobile (≤ 768px)
+   The app is built largely with inline styles. These rules adapt the
+   most common fixed-width layout patterns for phones without rewriting
+   every component. `!important` is required to override inline styles.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Stack multi-column inline grids into a single column on phones.
+     This is the default for card / layout grids. A grid that must stay
+     multi-column on mobile (calendars, the timetable slot grid) opts OUT
+     explicitly with className="keep-grid" — no fragile column-string matching. */
+  [style*="grid-template-columns"]:not(.keep-grid) {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Trim oversized page gutters so content isn't cramped on small screens. */
+  .chronos main > div,
+  .chronos main > section {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHRONOS — Themed scrollbar
+   Scoped to .chronos so it doesn't affect Login or other pages
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Firefox */
+.chronos,
+.chronos * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+.chronos ::-webkit-scrollbar,
+.chronos::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.chronos ::-webkit-scrollbar-track,
+.chronos::-webkit-scrollbar-track {
+  background: transparent;
+  border: none;
+}
+
+.chronos ::-webkit-scrollbar-thumb,
+.chronos::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.15s ease;
+}
+
+.chronos ::-webkit-scrollbar-thumb:hover,
+.chronos::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+  background-clip: content-box;
+}
+
+.chronos ::-webkit-scrollbar-thumb:active,
+.chronos::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.28);
+  background-clip: content-box;
+}
+
+/* Hide scrollbar corner */
+.chronos ::-webkit-scrollbar-corner,
+.chronos::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Slimmer variant for compact areas (sidebar nav) */
+.chronos .chronos-scroll-slim::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.chronos .chronos-scroll-slim::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+}
+
+.chronos .chronos-scroll-slim::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Hide scrollbar entirely until hover (for sidebar) */
+.chronos .chronos-scroll-hover::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.chronos .chronos-scroll-hover:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  background-clip: content-box;
+}
+
+.chronos .chronos-scroll-hover:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+  background-clip: content-box;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Shared app animations & scrollbar (hoisted from per-page GLOBAL strings)
+   These keyframes + the .chronos *::-webkit-scrollbar rules were
+   byte-identical across multiple page GLOBAL_STYLES strings (the 3
+   dashboards) and use global selectors, so they live here once.
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes tileEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ch-search-bg-in {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to   { opacity: 1; backdrop-filter: blur(10px); }
+}
+@keyframes ch-search-modal-in {
+  from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ch-gauge-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ch-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Light-theme scrollbars */
+.chronos *::-webkit-scrollbar { width: 6px; height: 6px; }
+.chronos *::-webkit-scrollbar-track { background: transparent; }
+.chronos *::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.10); border-radius: 3px; }
+.chronos *::-webkit-scrollbar-thumb:hover { background: rgba(15, 23, 42, 0.18); }

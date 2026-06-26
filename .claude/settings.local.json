@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *)",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:5000/auth/me)",
+      "Bash(curl -s -X POST http://localhost:5000/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"test@test.com\",\"password\":\"wrong\"}')",
+      "Bash(curl -s -X POST http://localhost:5000/auth/register -H 'Content-Type: application/json' -d '{\"email\":\"test@test.com\"}')",
+      "Bash(echo \"PID: $!\" sleep 4 curl -s http://localhost:5000/auth/me)",
+      "Bash(npm run *)",
+      "Bash(curl -s -X POST http://localhost:5000/teachers/add -H 'Content-Type: application/json' -d '{}')",
+      "Bash(curl -s -X POST http://localhost:5000/subjects/add -H 'Content-Type: application/json' -d '{\"name\":\"OS\",\"subjectType\":\"theory\",\"credits\":3,\"department\":\"someId\"}')",
+      "Bash(curl -s -X POST http://localhost:5000/classrooms/add -H 'Content-Type: application/json' -d '{\"name\":\"New Room\"}')",
+      "Bash(curl -s \"http://localhost:5000/timetables/class/000000000000000000000000\")",
+      "Bash(curl -s \"http://localhost:5000/timetables/teacher/000000000000000000000000\")",
+      "Bash(curl -s \"http://localhost:5000/timetables/student/000000000000000000000000\")",
+      "Bash(curl -s -X DELETE http://localhost:5000/departments/__TRACKED_VAR__ -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(curl -s \"http://localhost:5000/progress/class/69f75257d41ef26b567a9046\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:5000/api/calendar\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:5000/calendar\")",
+      "Bash(sed -i 's/router\\\\.get\\('\\\\''\\\\/'\\\\''\\)/router.get\\('\\\\''\\\\/'\\\\''\\)/g' routes/classSubjects.js)",
+      "Bash(perl -i -pe ' *)",
+      "Bash(curl -s -X POST http://localhost:5000/auth/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@test.com\",\"password\":\"admin123\"}')",
+      "Bash(curl -s http://localhost:5000/health)",
+      "Bash(curl -s -X POST http://localhost:5000/auth/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@college.edu\",\"password\":\"admin123\"}')",
+      "Bash(curl -s -X POST http://localhost:5000/subjects/add -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68' -H 'Content-Type: application/json' -d '{\"name\":\"Test Subject Verify\",\"code\":\"TSVFY001\",\"lectures_per_week\":3,\"subjectType\":\"theory\",\"credits\":3}')",
+      "Bash(curl -s -X PUT http://localhost:5000/subjects/69f86a189df13f055d9ba09b -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68' -H 'Content-Type: application/json' -d '{\"credits\":4,\"subjectType\":\"lab\"}')",
+      "Bash(curl -s -X DELETE http://localhost:5000/subjects/69f86a189df13f055d9ba09b -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(curl -s http://localhost:5000/teachers -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'Total classrooms: {len\\(d\\) if isinstance\\(d,list\\) else \\\\\"n/a\\\\\"}'\\)\")",
+      "Bash(curl -s http://localhost:5000/classes -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(curl -s http://localhost:5000/progress/class/69f75257d41ef26b567a9046 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(curl -s \"http://localhost:5000/syllabus/year/2025-2026\")",
+      "Bash(curl -s http://localhost:5000/ratings/teacher/69f75255d41ef26b567a8ffa -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(curl -s http://localhost:5000/timetables -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(curl -s http://localhost:5000/reports/list -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')",
+      "Bash(curl -s -X DELETE http://localhost:5000/calendar/69f86c8c9df13f055d9ba117 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc1MjRiZDQxZWYyNmI1NjdhOGY0YSIsImlhdCI6MTc3Nzg4Nzc0NywiZXhwIjoxNzc4NDkyNTQ3fQ.5-QuznUboHDxXXxVldfjV3vSBLNttJf6WXD0i8cJv68')"
+    ]
+  }
+}
