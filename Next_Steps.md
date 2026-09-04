@@ -1,9 +1,9 @@
-# Next Steps - AI Timetable Generator
+# Next Steps - AI Timetable Generator & LMS
 
-**Current Phase:** Phase 10 - Production Deployment  
+**Current Phase:** Phase 11 - Production Deployment, Containerization & Automated Testing  
 **Status:** Ready to Begin  
-**Last Updated:** February 17, 2026  
-**Previous Phase:** Phase 9 (Holiday Calendar & Notifications) - ✅ Complete
+**Last Updated:** September 2026  
+**Previous Phase:** Phase 10 (Layered Architecture, Attendance, Leave & Modernization) - ✅ Complete
 
 ---
 
@@ -12,150 +12,102 @@
 | Phase | Name | Status |
 |---|---|---|
 | 1-2 | Setup & Authentication | ✅ Complete |
-| 3-4 | Academic Structure | ✅ Complete |
-| 5 | Timetable Generation | ✅ Complete |
-| 6 | Editing & Versioning | ✅ Complete |
-| 8A | Progress Tracking | ✅ Complete |
-| 8B | Adaptive Scheduling | ✅ Complete |
-| 8C | Teacher Performance Ratings | ✅ Complete |
+| 3-4 | Academic Structure & Assignments | ✅ Complete |
+| 5 | Timetable Generation (OR-Tools CP-SAT) | ✅ Complete |
+| 6 | Editing, Drag-and-Drop & Versioning | ✅ Complete |
 | 7 | Reports & Analytics | ✅ Complete |
-| 9 | Holiday Calendar & Notifications | ✅ Complete |
+| 8A | Progress Tracking & Syllabus Management | ✅ Complete |
+| 8B | Adaptive Dynamic Scheduling | ✅ Complete |
+| 8C | Teacher Performance Ratings | ✅ Complete |
+| 9 | Holiday Calendar & Real-Time Notifications | ✅ Complete |
+| 10 | Layered Architecture, Attendance, Leave & Modernization | ✅ Complete |
 
-**Progress:** 82% Complete (9/11 phases)
-
----
-
-## 🎯 Current Priority: Phase 10 - Production Deployment
-
-**Timeline:** 2 weeks  
-**Objective:** Prepare the application for production use with security hardening, performance optimization, and deployment infrastructure.
+**Core Application Status:** 100% Feature Complete (10/10 Core Feature Phases)
 
 ---
 
-### Week 1: Environment & Security (Days 1-7)
+## 🎯 Current Priority: Phase 11 - Production Deployment & Testing
 
-#### Day 1-2: Production Environment Setup
-- Set up production server (VPS/cloud)
-- Configure domain and SSL/TLS certificates
-- Set up environment variables for production
-- Configure CORS policies for production domain
-
-**Files to Create/Modify:**
-- `.env.production` — Production environment variables
-- `Backend/config/production.js` — Production configuration
-- `nginx.conf` — Reverse proxy configuration
-
-#### Day 3-4: Security Hardening
-- Add rate limiting to all API endpoints
-- Implement input sanitization
-- Add helmet.js for HTTP security headers
-- Audit all routes for proper authentication
-- Implement CSRF protection
-
-**Dependencies:**
-```bash
-npm install helmet express-rate-limit hpp express-mongo-sanitize
-```
-
-#### Day 5-7: Database Optimization
-- Add database indexes for frequent queries
-- Set up MongoDB connection pooling
-- Implement query optimization
-- Set up database backup automation
-- Create migration/seed scripts
-
-**Files to Create:**
-- `Backend/scripts/createIndexes.js` — Database index setup
-- `Backend/scripts/backup.sh` — Automated backup script
-- `Backend/scripts/seed.js` — Data seeding for fresh deployments
+**Timeline:** 1-2 weeks  
+**Objective:** Package the multi-service architecture for automated testing, containerized deployment, and high-availability production hosting.
 
 ---
 
-### Week 2: Monitoring, CI/CD & Documentation (Days 8-14)
+### Step 1: Automated Test Suites (Days 1-4)
 
-#### Day 8-9: Monitoring & Logging
-- Set up error tracking (Sentry or similar)
-- Implement structured logging
-- Set up performance monitoring
-- Create health check endpoints
+#### 1. Backend Testing (Jest + Supertest)
+- Set up Jest test runner with in-memory MongoDB (`mongodb-memory-server`).
+- Write integration tests for critical workflows:
+  - Auth: registration, login, JWT verification, role access.
+  - Timetables: generation endpoint, slot validation, version revert.
+  - Attendance: session creation, bulk marking, percentage metrics.
+  - Leave Management: submission, timetable conflict detection, approval.
 
-**Files to Create/Modify:**
-- `Backend/middleware/logger.js` — Structured logging middleware
-- `Backend/routes/health.js` — Health check endpoint
-- `Backend/config/monitoring.js` — Monitoring configuration
+#### 2. Solver Service Testing (Pytest)
+- Pytest test suite for `Solver-service/main.py`:
+  - Unit test 7 hard constraint rules (H1 to H7).
+  - Verify adaptive slot allocation calculations against various urgency scores.
+  - Test cross-class reservation conflict blocking.
 
-#### Day 10-11: CI/CD Pipeline
-- Set up GitHub Actions for automated testing
-- Configure build pipeline for frontend
-- Create Docker containers for all services
-- Set up automated deployment
-
-**Files to Create:**
-- `.github/workflows/ci.yml` — CI pipeline
-- `Dockerfile` — Backend Docker configuration
-- `docker-compose.yml` — Full stack Docker setup
-- `Frontend/Dockerfile` — Frontend Docker configuration
-- `Solver-service/Dockerfile` — Solver Docker configuration
-
-#### Day 12-14: Documentation & Final Testing
-- API documentation (Swagger/OpenAPI)
-- User manual
-- Admin guide
-- End-to-end testing
-- Performance load testing
-
-**Files to Create:**
-- `Backend/swagger.js` — API documentation setup
-- `docs/USER_GUIDE.md` — End user documentation
-- `docs/ADMIN_GUIDE.md` — Administrator documentation
-- `docs/API_REFERENCE.md` — API endpoint reference
+#### 3. Frontend Testing (Vitest + React Testing Library)
+- Test key UI interactions:
+  - Role-based route guard rendering (`ProtectedRoute.jsx`).
+  - Drag-and-drop slot validation in timetable editor.
+  - Form validation with Zod schemas.
 
 ---
 
-## 📋 Success Criteria
+### Step 2: Containerization with Docker (Days 5-7)
 
-**Infrastructure:**
-- [ ] Application deployed on production server
-- [ ] SSL/TLS configured and working
-- [ ] Database backups running automatically
-- [ ] Monitoring and alerting in place
+#### 1. Service Dockerfiles
+- `Backend/Dockerfile`: Node.js 18 alpine multi-stage build.
+- `Frontend/Dockerfile`: Multi-stage build with Vite build + Nginx static serving.
+- `Solver-service/Dockerfile`: Python 3.10 slim image with Google OR-Tools.
 
-**Security:**
-- [ ] Rate limiting on all endpoints
-- [ ] Input sanitization implemented
-- [ ] No security vulnerabilities in audit
-- [ ] CORS properly configured
-
-**Performance:**
-- [ ] Page load time < 2 seconds
-- [ ] API response time < 500ms (95th percentile)
-- [ ] Timetable generation < 30 seconds
-- [ ] Database queries optimized with indexes
-
-**Documentation:**
-- [ ] API docs complete (Swagger)
-- [ ] User guide written
-- [ ] Admin guide written
-- [ ] Deployment guide written
+#### 2. Compose Configuration
+- `docker-compose.yml`: Local orchestrator binding:
+  - `mongodb`: MongoDB 6.0 container with persistent volume.
+  - `solver`: FastAPI solver service on port 8000.
+  - `backend`: Express API on port 5000 linked to MongoDB and Solver.
+  - `frontend`: React SPA on port 80/5173.
+- `docker-compose.prod.yml`: Production configuration with Nginx reverse proxy and SSL certificates.
 
 ---
 
-## 🔄 After Phase 10
+### Step 3: CI/CD Pipeline & GitHub Actions (Days 8-10)
 
-### Phase 11: Machine Learning Enhancements (4-6 weeks, FUTURE)
-- ML-based parameter optimization
-- Predictive urgency scoring
-- Automatic conflict resolution
-- Smart resource allocation
-- Pattern recognition in scheduling
-- Recommendation system
-- Anomaly detection
-
-**Technologies:** TensorFlow/PyTorch, Scikit-learn, Predictive modeling
+- `.github/workflows/ci.yml`:
+  - Run ESLint on Frontend and Backend.
+  - Run Jest test suite on Backend.
+  - Run Pytest suite on Solver service.
+  - Verify Vite frontend build.
+  - Build and push Docker images on merge to `main`.
 
 ---
 
-**Current Status:** Phase 9 Complete (82%)  
-**Next:** Phase 10 - Production Deployment  
-**Remaining:** 18% of project  
-**Expected Completion:** 2-4 weeks
+### Step 4: Production Hardening & Operations (Days 11-14)
+
+- **Reverse Proxy:** Configure Nginx for HTTPS termination, WebSocket proxying (`/socket.io`), and static asset caching.
+- **Database Backups:** Automated daily MongoDB backup script (`Backend/scripts/backup.sh`) with cloud storage sync.
+- **Monitoring & Health Checks:** Add Prometheus metrics or Sentry error tracking for backend and frontend.
+
+---
+
+## 📋 Phase 11 Deliverables Checklist
+
+- [ ] `Backend/__tests__/` with Jest test suites
+- [ ] `Solver-service/tests/` with Pytest test suites
+- [ ] `Backend/Dockerfile`
+- [ ] `Frontend/Dockerfile`
+- [ ] `Solver-service/Dockerfile`
+- [ ] `docker-compose.yml`
+- [ ] `.github/workflows/ci.yml`
+- [ ] `Backend/scripts/backup.sh`
+
+---
+
+## 🔮 Future Horizon: Phase 12 - ML Predictive Optimizations
+
+- Predictive syllabus delay forecasting based on historical session logs.
+- Automatic faculty substitute recommendation using capability matching.
+- Smart room allocation considering building distance and transit times.
