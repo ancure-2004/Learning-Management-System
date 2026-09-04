@@ -10,6 +10,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Python virtual environment and cache
+.venv/
+**/.venv/
 solver-service/venv/
 solver-service/__pycache__/
 __pycache__/
