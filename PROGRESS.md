@@ -1,7 +1,7 @@
 # LMS Project Progress & Roadmap
 
-> **Tracking Standard:** Strict 4-tier lifecycle (`Current State -> In Progress -> Next Up -> Archive`).
-> Keeps active focus clear while avoiding scrolling through unstructured history walls.
+> **Tracking Standard:** Strict 5-tier lifecycle (`Current State -> In Progress -> Next Up -> Future Ideas -> Archive`).
+> Keeps active focus clear while separating immediate execution from long-range vision.
 
 ---
 
@@ -28,35 +28,42 @@ The Learning Management System is fully functional across all three primary tier
 
 - [ ] **Docker Compose Orchestration:** Multi-container `docker-compose.yml` for unified one-command local startup (Frontend + Backend + Solver + MongoDB).
 - [ ] **E2E Integration Verification:** Automated contract and smoke tests between Frontend React Query mutation hooks and Backend Express endpoints.
-- [ ] **Data Export Formats:** Excel/PDF export capabilities for class attendance logs and finalized timetable grids.
+- [ ] **Data Export Formats:** Excel and PDF export capabilities for class attendance registers and finalized timetable grids.
 
 ---
 
-## 3. Next Up (Prioritized Roadmap)
+## 3. Next Up (Near-Term, What's Actually Being Built Next)
+
+Concrete, prioritized tasks scheduled for the immediate upcoming sprints:
+
+- [ ] **Smart Faculty Substitution:** When an admin approves a teacher's leave in `/leave`, automatically query the solver/schedule to recommend available substitute teachers with matching subject competence.
+- [ ] **Attendance Threshold Alerts:** Automated Socket.IO notifications sent to students and advisors when attendance falls below institutional criteria (< 75%).
+- [ ] **Timetable Version History:** Store previous timetable versions before overrides or regenerations with one-click restore.
+- [ ] **Batch User Import:** CSV / Excel bulk upload for onboarding new students and faculty members.
+
+---
+
+## 4. Future Ideas / Backlog (Long-Term Vision, Not Scheduled)
+
+Long-range product vision and planned major subsystems:
 
 ### Phase 1: Academic Deepening
-- **Examination & Grading System:**
-  - Exam scheduling timetable module.
-  - Marks entry portal for teachers, automated GPA/CGPA computation, and student report cards.
-- **Assignments & Submissions Portal:**
-  - Assignment creation with deadlines and attachment upload.
-  - Student file submissions and teacher grading rubric.
-- **Fee Management System:**
-  - Student fee ledger, semester dues tracking, and payment gateway integration (Razorpay / Stripe).
+- **Examination & Grading System:** Exam scheduling timetable module, marks entry portal, automated GPA/CGPA computation, and student report card generation.
+- **Assignments & Homework Portal:** Assignment creation with deadlines, student file submissions, and teacher grading rubrics.
+- **Fee Management System:** Student fee ledger, semester dues tracking, and payment gateway integration (Razorpay / Stripe).
 
-### Phase 2: Smart AI Enhancements
-- **Smart Substitution Engine:**
-  - When an admin approves a faculty leave, automatically query the solver to suggest available substitute teachers with matching subject competence.
-- **AI Course Assistant:**
-  - Auto-generate unit summaries, practice quizzes, and lecture slides from syllabus topics.
+### Phase 2: AI & Smart Enhancements
+- **AI Course Assistant:** Auto-generate unit summaries, practice quizzes, and lecture notes from uploaded syllabus documents.
+- **Predictive Analytics:** Early warning system predicting student academic risk based on attendance trends and progress logs.
 
-### Phase 3: Production & DevOps
-- **Redis Caching Layer:** Cache published timetable grids and static academic structures for sub-10ms response times.
+### Phase 3: Infrastructure & Scalability
+- **Redis Caching Layer:** High-speed caching for published timetable grids and static academic structures.
 - **Automated CI/CD Pipeline:** GitHub Actions workflow executing ESLint, backend route tests, and build validation on pull requests.
+- **Multi-Tenant Institution Support:** Multi-college isolation under a single unified platform.
 
 ---
 
-## 4. Archive (Completed Milestones)
+## 5. Archive (Completed Milestones)
 
 - **Milestone 1 — Core Prototype:** Initial single-class timetable generator with basic Express CRUD and MongoDB storage.
 - **Milestone 2 — Cross-Class Constraint Solver:** Integrated Python FastAPI with Google OR-Tools CP-SAT discrete solver, adding support for lab consecutive slots, teacher daily limits, and cross-class room reservations.
