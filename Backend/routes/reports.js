@@ -13,6 +13,9 @@ router.post('/generate', verifyToken, authorize('admin'), validate({ body: schem
 // ─── List all reports ────────────────────────────────────────────────────────
 router.get('/list', verifyToken, authorize('admin'), ctrl.list);
 
+// ─── Compliance trend analytics ──────────────────────────────────────────────
+router.get('/compliance-trend', verifyToken, authorize('admin'), ctrl.getComplianceTrend);
+
 // ─── Get a single report ─────────────────────────────────────────────────────
 router.get('/:id', verifyToken, authorize('admin'), ctrl.getById);
 

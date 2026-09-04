@@ -39,14 +39,14 @@ app.use(express.json({ limit: '1mb' }));
 // Rate limiting — generous global cap + a strict cap on auth (anti brute-force)
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 1000,
+  max: config.isProd ? 1000 : 10000,
   standardHeaders: true,
   legacyHeaders: false,
   message: { status: 'error', message: 'Too many requests, please try again later.' },
 }));
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 20,
+  max: config.isProd ? 20 : 1000,
   standardHeaders: true,
   legacyHeaders: false,
   message: { status: 'error', message: 'Too many attempts. Please wait and try again.' },

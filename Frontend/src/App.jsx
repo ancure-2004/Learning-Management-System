@@ -90,6 +90,13 @@ function RoleAwareSyllabus() {
   return <ManageSyllabus />;
 }
 
+/* Teachers see their own ratings; admins see full faculty performance */
+function RoleAwareTeacherPerformance() {
+  const { user } = useAuth();
+  if (user?.role === 'admin') return <Insights defaultTab="performance" />;
+  return <TeacherMyRatings />;
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -231,6 +238,22 @@ function App() {
           />
 
           <Route
+            path="/generate-timetable"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <GenerateTimetableNew />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/generate-timetable/:classId"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <GenerateTimetableNew />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/generate-timetable-new/:classId"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
@@ -249,10 +272,26 @@ function App() {
           />
 
           <Route
+            path="/edit-timetable"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <EditTimetable />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/edit-timetable/:id"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <Schedule defaultTab="timetables" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-leave-management"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminLeaveManagement />
               </ProtectedRoute>
             }
           />
@@ -326,12 +365,12 @@ function App() {
             }
           />
 
-          {/* /teacher-performance — teacher sees own ratings, admin is redirected to Insights */}
+          {/* /teacher-performance — teacher sees own ratings, admin sees faculty performance */}
           <Route
             path="/teacher-performance"
             element={
-              <ProtectedRoute allowedRoles={['teacher']}>
-                <TeacherMyRatings />
+              <ProtectedRoute allowedRoles={['admin', 'teacher']}>
+                <RoleAwareTeacherPerformance />
               </ProtectedRoute>
             }
           />
@@ -357,6 +396,14 @@ function App() {
           {/* Reports & Analytics */}
           <Route
             path="/reports"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <Insights defaultTab="reports" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/report-dashboard"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <Insights defaultTab="reports" />
@@ -400,7 +447,23 @@ function App() {
             }
           />
           <Route
+            path="/teacher-attendance"
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>
+                <TeacherMarkAttendance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/grading"
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>
+                <TeacherGrading />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teacher-grading"
             element={
               <ProtectedRoute allowedRoles={['teacher']}>
                 <TeacherGrading />
@@ -416,10 +479,42 @@ function App() {
             }
           />
           <Route
+            path="/teacher-student-progress"
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>
+                <TeacherStudentProgress />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/class-performance"
             element={
               <ProtectedRoute allowedRoles={['teacher']}>
                 <TeacherClassPerformance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teacher-class-performance"
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>
+                <TeacherClassPerformance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teacher-ratings"
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>
+                <TeacherMyRatings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teacher-syllabus"
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>
+                <TeacherSyllabus />
               </ProtectedRoute>
             }
           />
@@ -430,6 +525,23 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['student']}>
                 <StudentSubjectsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/student-rate-teacher"
+            element={
+              <ProtectedRoute allowedRoles={['student']}>
+                <StudentRateTeacher />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rate-teacher"
+            element={
+              <ProtectedRoute allowedRoles={['student']}>
+                <StudentRateTeacher />
               </ProtectedRoute>
             }
           />

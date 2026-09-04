@@ -91,9 +91,9 @@ The Learning Management System (LMS) is a multi-service web platform designed fo
 - **Solver Service:** `http://localhost:8000` (FastAPI Docs: `http://localhost:8000/docs`)
 
 ### Default Seed Users (`npm run seed` in `/Backend`)
-- **Admin:** `admin@admin.com` / `admin123`
-- **Teacher:** `teacher@test.com` / `teacher123`
-- **Student:** `student@test.com` / `student123`
+- **Admin:** `admin@college.edu` / `admin123`
+- **Teacher:** `rajesh.kumar@college.edu` (or `priya.sharma@college.edu`) / `teacher123`
+- **Student:** `aarav.sharma@student.college.edu` (or `vivaan.kumar@student.college.edu`) / `student123`
 
 ---
 

@@ -171,7 +171,7 @@ const StudentLayout = ({ title, subtitle, actions, children }) => {
       MozOsxFontSmoothing: 'grayscale',
       letterSpacing: '-0.005em',
     }}>
-      <style dangerouslySetInnerHTML={{ __html: FONT_STYLE + GLOBAL }} />
+      <style dangerouslySetInnerHTML={{ __html: GLOBAL }} />
 
       {/* Sidebar */}
       <div style={{

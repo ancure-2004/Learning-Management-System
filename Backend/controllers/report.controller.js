@@ -16,6 +16,11 @@ exports.list = asyncHandler(async (req, res) => {
   res.json(result);
 });
 
+exports.getComplianceTrend = asyncHandler(async (req, res) => {
+  const result = await reportService.getComplianceTrend();
+  res.json(result);
+});
+
 exports.getById = asyncHandler(async (req, res) => {
   const result = await reportService.getById(req.params.id);
   res.json(result);
