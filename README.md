@@ -7,3 +7,4 @@ A modern, full-featured Learning Management System and Automated Timetable Sched
 - **Solver Service:** Python / FastAPI / Google OR-Tools Constraint Solver
 - **Codebase Reference:** [CODEBASE.md](file:///C:/Developing/firstmate/projects/Learning-Management-System/CODEBASE.md)
 - **Project Progress & Roadmap:** [PROGRESS.md](file:///C:/Developing/firstmate/projects/Learning-Management-System/PROGRESS.md)
+- **Refactor & AI Master Plan:** [MASTER-PLAN.md](file:///C:/Developing/firstmate/projects/Learning-Management-System/MASTER-PLAN.md)
